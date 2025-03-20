@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Medical Diagnosis</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #007BFF;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2.5em;
+            font-weight: 600;
+        }
+
+        /* Form Container */
+        .form-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Grid Layout */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* Form Labels */
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        /* Form Inputs */
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            border-color: #007BFF;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Button */
+        button {
+            grid-column: span 2;
+            padding: 14px;
+            margin-top: 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Result Section */
+        .result {
+            grid-column: span 2;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e9f5ff;
+            border: 1px solid #007BFF;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2em;
+            color: #007BFF;
+            font-weight: 600;
+        }
+
+        /* Error Message */
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            button {
+                grid-column: span 1;
+            }
+
+            .result {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>AI-Powered Medical Diagnosis System</h1>
+    <div class="form-container">
+        <form action="/predict" method="post" onsubmit="return validateForm()" class="form-grid">
+            <div>
+                <label for="Pregnancies">Number of Pregnancies:</label>
+                <input type="number" id="Pregnancies" name="Pregnancies" placeholder="Enter number of pregnancies (e.g., 2)" required>
+            </div>
+            <div>
+                <label for="Glucose">Glucose Level (mg/dL):</label>
+                <input type="number" id="Glucose" name="Glucose" placeholder="Enter glucose level (e.g., 120)" required>
+            </div>
+            <div>
+                <label for="BloodPressure">Blood Pressure (mm Hg):</label>
+                <input type="number" id="BloodPressure" name="BloodPressure" placeholder="Enter blood pressure (e.g., 80)" required>
+            </div>
+            <div>
+                <label for="SkinThickness">Skin Thickness (mm):</label>
+                <input type="number" id="SkinThickness" name="SkinThickness" placeholder="Enter skin thickness (e.g., 25)" required>
+            </div>
+            <div>
+                <label for="Insulin">Insulin Level (mu U/ml):</label>
+                <input type="number" id="Insulin" name="Insulin" placeholder="Enter insulin level (e.g., 100)" required>
+            </div>
+            <div>
+                <label for="BMI">Body Mass Index (BMI):</label>
+                <input type="number" id="BMI" name="BMI" step="0.1" placeholder="Enter BMI (e.g., 25.5)" required>
+            </div>
+            <div>
+                <label for="DiabetesPedigreeFunction">Diabetes Pedigree Function:</label>
+                <input type="number" id="DiabetesPedigreeFunction" name="DiabetesPedigreeFunction" step="0.001" placeholder="Enter diabetes pedigree function (e.g., 0.627)" required>
+            </div>
+            <div>
+                <label for="Age">Age (years):</label>
+                <input type="number" id="Age" name="Age" placeholder="Enter age (e.g., 35)" required>
+            </div>
+            <button type="submit">Diagnose</button>
+            {% if prediction_text %}
+            <div class="result">
+                <h2>{{ prediction_text }}</h2>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>
